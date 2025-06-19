@@ -1,12 +1,16 @@
 import Router from 'express';
 import { registerUser, loginUser, logoutUser} from '../controllers/user.controller.js';
-import verifyJWT from '../middleware/auth.middleware.js';
+import { userRegistrationValidator } from '../validators/index.js';
+import { vaildate } from '../middleware/validator.middleware.js';
+// import verifyJWT from '../middleware/auth.middleware.js';
 
 
 const router = Router();
 
-router.route('/register').post(registerUser);
+router.route('/register').post(userRegistrationValidator(),vaildate,registerUser);
+router.route("/verifyMail/:token").get(verifyEmail);
 router.route('/login').post(loginUser);
-router.route('/logout').post( verifyJWT,logoutUser);
+router.route('/logout').post( logoutUser);
+// router.route('/logout').post( verifyJWT,logoutUser);
 
 export default router;  

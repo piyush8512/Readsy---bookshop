@@ -26,6 +26,9 @@ const bookSchema = new mongoose.Schema({
         required: [true, "Price is required"], 
         min : [0, "price must be greater than 0"],
     },
+
+
+    //later on check this thing 
     coverImageUrl: {
     type: String,
     trim: true,
