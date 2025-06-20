@@ -1,7 +1,7 @@
 import mongoose , { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+import crypto from "crypto";
 
 
 const userSchema =new Schema(
@@ -100,19 +100,17 @@ userSchema.methods.generateRefreshToken = function () {
 };
 
 userSchema.methods.generateTemporaryToken = function () {
-    // This token should be client facing
-    // for example: for email verification unHashedToken should go into the user's mail
-    const unHashedToken = crypto.randomBytes(20).toString("hex");
+  const unHashedToken = crypto.randomBytes(20).toString("hex");
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(unHashedToken)
+    .digest("hex");
 
-    // This should stay in the DB to compare at the time of verification
-    const hashedToken = crypto
-        .createHash("sha256")
-        .update(unHashedToken)
-        .digest("hex");
-    // This is the expiry time for the token (20 minutes)
-    const tokenExpiry = Date.now() + 20 * 60 * 1000; // 20 minutes;
-
-    return { unHashedToken, hashedToken, tokenExpiry };
+  const tokenExpiry = Date.now() + 20 * 60 * 1000; // 20 mins
+  return {
+    unHashedToken,
+    hashedToken,
+    tokenExpiry,
+  };
 };
-
 export const User = mongoose.model("User", userSchema);
