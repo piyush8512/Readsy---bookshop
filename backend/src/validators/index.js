@@ -27,9 +27,6 @@ export const userRegistrationValidator = () => {
   ];
 };
 
-
-
-
 export const userLoginValidator = () => {
   return [
     body("email")

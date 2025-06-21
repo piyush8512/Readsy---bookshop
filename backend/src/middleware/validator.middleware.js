@@ -4,8 +4,8 @@ import {ApiError} from "../utils/Api.error.js";
 
 export const  validate = (req, res, next) => {
     const error = validationResult(req);
-    if (error.isEmpty())
-        return next();
+    if (error.isEmpty() )return next();
+
     else
     {
         const extractedErrors = error.array().map((err)=>{

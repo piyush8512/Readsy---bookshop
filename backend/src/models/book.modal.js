@@ -80,10 +80,10 @@ const bookSchema = new mongoose.Schema({
     trim: true,
     default: 'English'
   },
-//   pageCount: {
-//     type: Number,
-//     min: [1, 'Page count must be at least 1.']
-//   },
+  pageCount: {
+    type: Number,
+    min: [1, 'Page count must be at least 1.']
+  },
 
   
 

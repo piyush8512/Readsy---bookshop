@@ -4,8 +4,6 @@ import { userRegistrationValidator, userLoginValidator, userChangePasswordValida
 import { validate } from '../middleware/validator.middleware.js';
 import { isLoggedIn } from '../middleware/auth.middleware.js';
 import upload from '../middleware/multer.middlewares.js';
-// import verifyJWT from '../middleware/auth.middleware.js';
-
 
 const router = Router();
 
@@ -30,5 +28,9 @@ router.route("/refreshAccessToken").get(refreshAccessToken);
 
 router.route('/logout').post( isLoggedIn,logOutUser);
 // router.route('/logout').post( verifyJWT,logoutUser);
+
+
+//delete profile lateron
+
 
 export default router;  
