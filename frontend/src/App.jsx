@@ -1,29 +1,3 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-// import { Routes, Route, Navigate } from 'react-router-dom';
-// import HomePage from './Page/HomePage';
-// import Layout from './layout/layout';
-
-// function App() {
-
-//   return (
-//     <div className='flex flex-col items-center justify-start'>
-//       <Routes>
-//         <Route path="/" element={<Layout />}>
-//           <Route index element={<HomePage />} />
-//         </Route>
-
-//       </Routes>
-
-//     </div>
-//   )
-// }
-
-// export default App
-
-// App.jsx
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./Page/HomePage";
 import Layout from "./layout/layout";
@@ -35,10 +9,12 @@ import { useAuthStore } from "./store/useAuthStore";
 import { Loader } from "lucide-react";
 import { Navigate } from "react-router-dom";
 import AddBook from "./Page/AddBook";
+import Saved from "./Page/Saved";
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
-
+  console.log("Auth_User", authUser);
+  const isAdmin = authUser?.data?.role === "admin";
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
@@ -57,6 +33,9 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
         </Route>
+        <Route path="/saved" element={<Layout />}>
+          <Route index element={<Saved />} />
+        </Route>
         {/* <Route path="/login" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
         </Route> */}
@@ -74,19 +53,11 @@ function App() {
           element={!authUser ? <SignUp /> : <Navigate to={"/"} />}
         />
 
-        {/* <Route path="/addbook" element={<Layout />}>
-          <Route path="/addbook"
-            element={
-              authUser && authUser.role === "" ? (
-                <AddBook />
-              ) : (
-                <Navigate to={"/"} />
-              )
-            }
+        <Route path="/addbook" element={<Layout />}>
+          <Route
+            path="/addbook"
+            element={authUser && isAdmin ? <AddBook /> : <Navigate to={"/"} />}
           />
-        </Route> */}
-          <Route path="/addbook" element={<Layout />}>
-          <Route path="/addbook" element={<AddBook />} />
         </Route>
       </Routes>
     </div>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
+import Card from "../components/Card";
 const HomePage = () => {
   const ALLOWED_GENRES = [
     "All",
@@ -36,37 +36,29 @@ const HomePage = () => {
   ];
 
   const [showAll, setShowAll] = useState(false);
-  // 1. Add state to manage the selected genre, initialized to 'All'
   const [selectedGenre, setSelectedGenre] = useState("All");
-
   const genresToShow = showAll ? ALLOWED_GENRES : ALLOWED_GENRES.slice(0, 7);
-
-  // Handler for genre click
   const handleGenreClick = (genre) => {
     setSelectedGenre(genre);
-    // You might also want to trigger fetching books for this genre here
-    // e.g., fetchBooksByGenre(genre);
   };
 
   return (
     <div className="bg-orange-100 min-h-screen p-4">
       {" "}
-      {/* Added some padding for better visibility */}
-      {/* Category Heading */}
       <h1 className="text-2xl font-bold text-gray-800 mb-4">Categories</h1>
       {/* Genre Boxes */}
       <div className="flex flex-wrap gap-4">
         {genresToShow.map((genre, index) => (
           <div
-            key={index} // Using index as key is okay if items don't change order or get added/removed. For stable lists, a unique ID from the genre object would be better.
+            key={index}
             className={`px-4 py-2 border-2  text-sm md:text-base
                         font-medium transition-all duration-200 cursor-pointer
                         ${
-                          selectedGenre === genre // 3. Conditionally apply classes
-                            ? "bg-amber-500 text-black border-amber-500 " // Active/selected style
-                            : "hover:bg-amber-500  text-gray-800" // Default and hover style
+                          selectedGenre === genre
+                            ? "bg-amber-500 text-black border-amber-500 "
+                            : "hover:bg-amber-500  text-gray-800"
                         }`}
-            onClick={() => handleGenreClick(genre)} 
+            onClick={() => handleGenreClick(genre)}
           >
             {genre}
           </div>
@@ -83,9 +75,35 @@ const HomePage = () => {
           </button>
         </div>
       )}
-      <h1 className="text-2xl font-bold text-gray-800 my-4">Popular Books</h1>
-      {/* Rest of your HomePage content would go here,
-          and potentially filter books based on `selectedGenre` */}
+      <div className="flex justify-between pr-40">
+        <h1 className="text-2xl font-bold text-gray-800 my-4 pt-12">
+          Popular Books
+        </h1>
+        <h1 className="text-2xl font-bold text-gray-800 my-4 pt-12">More</h1>
+      </div>
+      <div className="flex flex-wrap gap-4">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
+      <div className="flex justify-between pr-40">
+        <h1 className="text-2xl font-bold text-gray-800 my-4 pt-12">
+          {" "}
+          Recommended Books
+        </h1>
+        <h1 className="text-2xl font-bold text-gray-800 my-4 pt-12">More</h1>
+      </div>
+      <div className="flex flex-wrap gap-4 pt-6">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
     </div>
   );
 };

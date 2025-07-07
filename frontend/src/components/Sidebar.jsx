@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 
-const Sidebar = () => {
+const Sidebar = ({ toggleSettings }) => {
   const navigate = useNavigate();
   const { authUser, logout } = useAuthStore();
   console.log("Auth_User", authUser);
@@ -65,10 +65,10 @@ const Sidebar = () => {
                 className="flex flex-col items-center space-y-1 group"
                 onClick={() => handleNavigation("/admin/edit-books")}
               >
-                <div className="p-2 hover:bg-blue-200 rounded-lg cursor-pointer transition-colors duration-200">
-                  <Pencil className="w-6 h-6 text-gray-600 group-hover:text-blue-700" />
+                <div className="p-2 hover:bg-orange-200 rounded-lg cursor-pointer transition-colors duration-200">
+                  <Pencil className="w-6 h-6 text-gray-600 group-hover:text-orange-700" />
                 </div>
-                <div className="text-xs text-gray-500 text-center group-hover:text-blue-700">
+                <div className="text-xs text-gray-500 text-center group-hover:text-orange-700">
                   Edit
                 </div>
               </div>
@@ -149,7 +149,7 @@ const Sidebar = () => {
           {/* Settings */}
           <div
             className="flex flex-col items-center space-y-1 group"
-            onClick={() => handleNavigation("/settings")}
+            onClick={toggleSettings}
           >
             <div className="p-2 hover:bg-orange-200 rounded-lg cursor-pointer transition-colors duration-200">
               <Settings className="w-6 h-6 text-gray-600 group-hover:text-orange-700" />
@@ -172,8 +172,7 @@ const Sidebar = () => {
             </div>
           </div>
 
-          {/* Conditional Login/Logout */}
-          {authUser ? ( // If authUser exists, show Logout
+          {authUser ? (
             <div
               className="flex flex-col items-center space-y-1 group"
               onClick={handleLogout}

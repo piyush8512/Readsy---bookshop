@@ -9,7 +9,9 @@ import {
   ShoppingCart,
 } from "lucide-react";
 
+
 import { useAuthStore } from "../store/useAuthStore";
+
 
 const Navbar = () => {
   const authUser = useAuthStore((state) => state.authUser);
